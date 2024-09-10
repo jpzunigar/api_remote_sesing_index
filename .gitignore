@@ -1,0 +1,15 @@
+# Python cache files
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+# Virtual environment
+env/
+venv/
+ENV/
+VENV/
+myenv/
+# Static files (you might want to commit collected static files if necessary)
+staticfiles/
+static/
+media/
