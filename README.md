@@ -34,7 +34,7 @@ To get started, follow the steps below:
     python manage.py runserver
 
 ## Available Endpoints
-1. POST /api/calculate_maps/
+1. POST /api/calculate-maps/
 
 This endpoint calculates geospatial indices (NDVI, EVI, SAR-VH, etc.) for a specific date and Area of Interest (AOI).
 Request Body:
@@ -44,8 +44,77 @@ Request Body:
         "producto": "NDVI",
         "drew_geojson": "geojson_representation_of_AOI"
     }
+    ```
 
-Response:
-    200 OK: The calculated geospatial product.
-    400 Bad Request: Missing or invalid input data.
-    500 Internal Server Error: Server error during processing.
+**Response**:
+    **200 OK**: The calculated geospatial product.
+    **400 Bad Request**: Missing or invalid input data.
+    **500 Internal Server Error**: Server error during processing.
+
+2. POST /api/time-series/
+This endpoint returns a time series of a given geospatial product for an AOI.
+Request Body:
+    ```json
+        json
+
+        {
+            "producto": "NDVI",
+            "drew_geojson": "geojson_representation_of_AOI"
+        }
+    ```
+
+**Response**:
+    **200 OK**: Time series data.
+    **400 Bad Request**: Missing or invalid input data.
+    **500 Internal Server Error**: Error fetching time series data.
+
+3. POST /api/dates_with_images/
+
+This endpoint returns available dates with imagery for the requested product and AOI.
+Request Body:
+
+    ```json
+        json
+
+        {
+        "producto": "NDVI",
+        "drew_geojson": "geojson_representation_of_AOI"
+        }
+    ```
+
+**Response**:
+    **200 OK**: List of available dates.
+    **400 Bad Request**: Missing or invalid input data.
+    **500 Internal Server Error**: Error fetching available dates.
+
+## Error Handling
+
+The API handles various errors, such as:
+
+    -400 Bad Request: If required fields are missing or invalid.
+    -500 Internal Server Error: For unexpected errors or failures in third-party services (e.g., Google Earth Engine).
+
+Common errors include:
+
+    -Missing date_data, producto, or drew_geojson.
+    -Invalid AOI geometry.
+
+## Logging
+This project uses Python’s logging module to log errors. Logs are stored in the default Django loggers. You can configure the logging settings in settings.py.
+
+License
+
+This project is licensed under the MIT License.
+
+### Key sections:
+
+1. **Project Setup**: Instructions to clone, install dependencies, and run the project.
+2. **Environment Variables**: Explanation of required environment variables (for accessing Google Earth Engine).
+3. **Available Endpoints**: Detailed API documentation, including request body and expected responses for each view.
+4. **Error Handling**: Information on common errors and their handling.
+5. **Logging**: Overview of how logging is managed in the project.
+6. **Contributing**: Basic guidelines on how to contribute to the project.
+
+This structure can be expanded or customized depending on your specific project needs.
+
+
